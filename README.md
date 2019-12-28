@@ -456,5 +456,7 @@ It was unfortunate but the winners were so close that luck and brute force had a
 
 ![](docs/deepracer_components.png)
 
-
+# Contributors:
+@irisdroidology
+@exynos-999
 
