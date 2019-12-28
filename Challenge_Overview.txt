@@ -42,6 +42,13 @@ UBUNTU_CODENAME=bionic
 
 @Liam add your version details as well.
 
+@IrisDroidology - PC Specs
+AMD Ryzen 5 2600 Six-Core Processor - 3.4 GHZ
+16 GB DDR4 RAM
+Windows 10 Home (OS)
+256 GB Seagate SSD; 1TB Samsung HDD
+Nvidea 1050ti Graphics
+
 -Proveide version info/config file while asking for help in the channel 
 -They are using RL-Coach 
 
