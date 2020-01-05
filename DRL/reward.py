@@ -175,7 +175,7 @@ def calculate_race_line_factor(params):
 
 def penalize_downshifting(speed):
   global g_last_speed_value
-  if g_last_speed_value > speed:
+  if g_last_speed_value > speed: # if the most recent speed value received by the algorithm is too high (i.e. greater than the value set in the speed variable), the reward total will be penalised
     speed_factor = 1e-3
   else:
     speed_factor = 1.0
