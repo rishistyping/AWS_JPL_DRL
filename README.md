@@ -460,3 +460,7 @@ It was unfortunate but the winners were so close that luck and brute force had a
 @irisdroidology
 @exynos-999
 
+
+# Documentation
+Acordrobotics.slack.com
+https://photos.app.goo.gl/eZY941jNep7YMftm7 - good to see how we did/will do stuff...google photos album...
