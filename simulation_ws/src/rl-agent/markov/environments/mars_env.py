@@ -21,7 +21,7 @@ from sensor_msgs.msg import LaserScan, Imu
 from geometry_msgs.msg import Point
 from std_msgs.msg import Float64
 from std_msgs.msg import String
-from PIL import Image
+from PIL import Image # importing these things from either packages or parts of other files in THIS directory/repo
 import queue
 
 
@@ -40,29 +40,29 @@ IMG_QUEUE_BUF_SIZE = 1
 # Prevent unknown "stuck" scenarios with a kill switch (MAX_STEPS)
 MAX_STEPS = 2000
 
-# Destination Point
-CHECKPOINT_X = 44.25
-CHECKPOINT_Y = -4
+# Destination Point // This is where we want to go.
+CHECKPOINT_X = 44.25 # x coord
+CHECKPOINT_Y = -4 # y coord
 
 # Initial position of the robot
-INITIAL_POS_X = -0.170505086911
+INITIAL_POS_X = -0.170505086911 # this is where we start at (x coord) 
 INITIAL_POS_Y = 0.114341186761
 INITIAL_POS_Z = -0.0418765865136
 
-INITIAL_ORIENT_X = 0.0135099011407
-INITIAL_ORIENT_Y = 0.040927747122
+INITIAL_ORIENT_X = 0.0135099011407 # this is the initial, or starting orientation of the rover. As this cant be changed (I believe), it wont be very useful. // See line below
+INITIAL_ORIENT_Y = 0.040927747122 ## however, if it can be changed (especially if it can be done through the reward function) it could be good for the rl-agent
 INITIAL_ORIENT_Z = 0.0365547169101
 INITIAL_ORIENT_W = 0.998401800258
 
 
 # Initial distance to checkpoint
 INITIAL_DISTANCE_TO_CHECKPOINT = abs(math.sqrt(((CHECKPOINT_X - INITIAL_POS_X) ** 2) +
-                                               ((CHECKPOINT_Y - INITIAL_POS_Y) ** 2)))
+                                               ((CHECKPOINT_Y - INITIAL_POS_Y) ** 2))) # this calculates how far away the checkpoint is from the initial location of the rover. The reward function will b calculated from this, and therefore it is useful (i think) in training the agent, however it is not changeable (unless the above "parameters" or variables are changeable as well)
 
 
 # SLEEP INTERVALS - a buffer to give Gazebo, RoS and the rl_agent to sync.
 SLEEP_AFTER_RESET_TIME_IN_SECOND = 0.3
-SLEEP_BETWEEN_ACTION_AND_REWARD_CALCULATION_TIME_IN_SECOND = 0.3 # LIDAR Scan is 5 FPS (0.2sec).
+SLEEP_BETWEEN_ACTION_AND_REWARD_CALCULATION_TIME_IN_SECOND = 0.3 # LIDAR Scan is 5 FPS (0.2sec). # does not need to be changed - don't worry about it!!?
 SLEEP_WAITING_FOR_IMAGE_TIME_IN_SECOND = 0.01
 
 
