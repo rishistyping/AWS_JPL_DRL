@@ -66,7 +66,7 @@ SLEEP_BETWEEN_ACTION_AND_REWARD_CALCULATION_TIME_IN_SECOND = 0.3 # LIDAR Scan is
 SLEEP_WAITING_FOR_IMAGE_TIME_IN_SECOND = 0.01
 
 
-class MarsEnv(gym.Env):
+class MarsEnv(gym.Env): # classes in python are blueprints for the object - python is an object-oriented language... // everything her is a set of data for the Mars Environment
     def __init__(self):
         self.x = INITIAL_POS_X                                                  # Current position of Rover 
         self.y = INITIAL_POS_Y                                                  # Current position of Rover
@@ -329,9 +329,9 @@ class MarsEnv(gym.Env):
         '''
         
         # Corner boundaries of the world (in Meters)
-        STAGE_X_MIN = -44.0
+        STAGE_X_MIN = -44.0 # // corner part of reward function
         STAGE_Y_MIN = -25.0
-        STAGE_X_MAX = 15.0
+        STAGE_X_MAX = 15.0 # The distance that the agent (the rover) is from the corners does not matter directly. // What I mean is that while the agent may move closer to certain corners to avoid obstacles/complete the course, the distance from the corners, and the distance from the centre (AWS DeepRacer) does not matter to the reward function. A higher score will not be given if the agent is closer to the center or further away...
         STAGE_Y_MAX = 22.0
         
         
@@ -342,7 +342,7 @@ class MarsEnv(gym.Env):
         
         
         # WayPoints to checkpoint
-        WAYPOINT_1_X = -10
+        WAYPOINT_1_X = -10 # Helps out the reward function. // As it is a long distance for the rover to travel, it typically won't get the whole distance the first few times. The waypoint can act as a secondary/first coordinate to get to, and is therefore useful for the training with the reward function, especially early on.
         WAYPOINT_1_Y = -4
         
         WAYPOINT_2_X = -17
@@ -353,7 +353,7 @@ class MarsEnv(gym.Env):
         
         # REWARD Multipliers
         FINISHED_REWARD = 10000
-        WAYPOINT_1_REWARD = 1000
+        WAYPOINT_1_REWARD = 1000 # these can remain the same :)
         WAYPOINT_2_REWARD = 2000
         WAYPOINT_3_REWARD = 3000
 
@@ -370,16 +370,16 @@ class MarsEnv(gym.Env):
             
             # Has LIDAR registered a hit
             if self.collision_threshold <= CRASH_DISTANCE:
-                print("Rover has sustained sideswipe damage")
-                return 0, True # No reward
+                print("Rover has sustained sideswipe damage") # can we add a variable into this to say where? // ("text string" + variable)??
+                return 0, True # No reward // the rover can't continue so the reward is 0 - training 
             
             # Have the gravity sensors registered too much G-force
             if self.collision:
-                print("Rover has collided with an object")
+                print("Rover has collided with an object") # obstacle, same as above -
                 return 0, True # No reward
             
             # Has the rover reached the max steps
-            if self.power_supply_range < 1:
+            if self.power_supply_range < 1: # the min power supply - as in when the "tank" is empty - is 1...according to the agent
                 print("Rover's power supply has been drained (MAX Steps reached")
                 return 0, True # No reward
             
@@ -388,7 +388,7 @@ class MarsEnv(gym.Env):
                 print("Congratulations! The rover has reached the checkpoint!")
                 multiplier = FINISHED_REWARD
                 reward = (base_reward * multiplier) / self.steps # <-- incentivize to reach checkpoint in fewest steps
-                return reward, True
+                return reward, True # the base reward plus a bonus based on how it goes
             
             # If it has not reached the check point is it still on the map?
             if self.x < (GUIDERAILS_X_MIN - .45) or self.x > (GUIDERAILS_X_MAX + .45):
