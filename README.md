@@ -464,3 +464,6 @@ It was unfortunate but the winners were so close that luck and brute force had a
 # Documentation
 Acordrobotics.slack.com
 https://photos.app.goo.gl/eZY941jNep7YMftm7 - good to see how we did/will do stuff...google photos album...
+
+## Tasks 
+Reinforcement Learning: https://stackoverflow.com/questions/46260775/what-is-a-policy-in-reinforcement-learning Commit 18/1/2020
