@@ -137,7 +137,7 @@ class MarsEnv(gym.Env): # classes in python are blueprints for the object - pyth
     def step(self, action):
         # initialize rewards, next_state, done
         self.reward = None
-        self.done = False
+        self.done = False # done - an action. // When the agent hits an obstacle - https://github.com/EXYNOS-999/AWS_JPL_DRL#asset-manifest-and-descriptions - the sim is done. // Also when rover completes course?
         self.next_state = None
 
         steering = float(action[0])
@@ -156,14 +156,14 @@ class MarsEnv(gym.Env): # classes in python are blueprints for the object - pyth
     '''
     DO NOT EDIT - Function called at the conclusion of each episode to reset episodic values
     '''
-    def reset(self):
+    def reset(self): # reset custom, episodic variables/params here
         print('Total Episodic Reward=%.2f' % self.reward_in_episode,
               'Total Episodic Steps=%.2f' % self.steps)
         self.send_reward_to_cloudwatch(self.reward_in_episode)
 
         # Reset global episodic values
         self.reward = None
-        self.done = False
+        self.done = False # after each sim env, the environment and sim resets, so the done variable resets as well.
         self.next_state = None
         self.ranges= None
         self.send_action(0, 0) # set the throttle to 0
@@ -176,7 +176,7 @@ class MarsEnv(gym.Env): # classes in python are blueprints for the object - pyth
     '''
     DO NOT EDIT - Function called to send the agent's chosen action to the simulator (Gazebo)
     '''
-    def send_action(self, steering, throttle):
+    def send_action(self, steering, throttle): # will learn what to do via the reward_function*
         speed = Twist()
         speed.linear.x = throttle
         speed.angular.z = steering
@@ -391,13 +391,13 @@ class MarsEnv(gym.Env): # classes in python are blueprints for the object - pyth
                 return reward, True # the base reward plus a bonus based on how it goes
             
             # If it has not reached the check point is it still on the map?
-            if self.x < (GUIDERAILS_X_MIN - .45) or self.x > (GUIDERAILS_X_MAX + .45):
+            if self.x < (GUIDERAILS_X_MIN - .45) or self.x > (GUIDERAILS_X_MAX + .45): # once the episode has ended, if the agent isn't on the map // for troubleshooting // line 368 as of commit on 19.1.20
                 print("Rover has left the mission map!")
                 return 0, True
                 
                 
             if self.y < (GUIDERAILS_Y_MIN - .45) or self.y > (GUIDERAILS_Y_MAX + .45):
-                print("Rover has left the mission map!")
+                print("Rover has left the mission map!") # same as above if statement py // uses coords
                 return 0, True
             
             
@@ -409,8 +409,8 @@ class MarsEnv(gym.Env): # classes in python are blueprints for the object - pyth
                     self.reached_waypoint_1 = True
                     print("Congratulations! The rover has reached waypoint 1!")
                     multiplier = 1 
-                    reward = (WAYPOINT_1_REWARD * multiplier)/ self.steps # <-- incentivize to reach way-point in fewest steps
-                    return reward, False
+                    reward = (WAYPOINT_1_REWARD * multiplier)/ self.steps # <-- incentivize to reach way-point in fewest steps // the faster and better the agent does it, the higher the mumultiplier 
+                    return reward, False # doesn't return reward function as it is not an episode ending
             
             if self.last_position_x <= WAYPOINT_2_X and self.last_position_y >= WAYPOINT_2_Y: # Rover is past the midpoint
                 # Determine if Rover already received one time reward for reaching this waypoint
