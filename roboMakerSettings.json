@@ -118,7 +118,7 @@
               "subnet-93e4dccf"
             ],
             "securityGroups": [
-              "sg-030d59568d7d76eab"
+              "sg-030d59568d7d76eab" #  # my security group is sg-0cd53aa93965f9044 // https://www.youtube.com/watch?v=fK6Qsc01YHA @ 19:32
             ],
             "assignPublicIp": true
           },
