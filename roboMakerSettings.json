@@ -118,7 +118,7 @@
               "subnet-93e4dccf"
             ],
             "securityGroups": [
-              "sg-030d59568d7d76eab"
+              "sg-0cd53aa93965f9044" # see https://github.com/EXYNOS-999/AWS_JPL_DRL/pull/11/files
             ],
             "assignPublicIp": true
           },
